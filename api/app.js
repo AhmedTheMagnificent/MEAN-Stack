@@ -1,11 +1,19 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { List } = require('./db/models/listmodel');
 const { Task } = require("./db/models/taskmodel");
 const { mongoose } = require("./db/mongoose");
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
+app.use(cors());
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 app.get('/lists', (req, res) => {
     List.find({}).then((lists) => {
@@ -38,8 +46,17 @@ app.delete('/lists/:id', (req, res) => {
         });
 });
 
+app.get('/lists/:listId/tasks/:taskId', (req, res) => {
+    Task.findOne({
+        _id: req.params.taskId,
+        _listId: req.params.listId
+    }).then((task) => {
+        res.send(task);
+    });
+});
+
 app.get('/lists/:listId/tasks', (req, res) => {
-    Task.find({ _listId: req.params.listId}).then((tasks) => {
+    Task.find({ _listId: req.params.listId }).then((tasks) => {
         res.send(tasks);
     });
 });
@@ -59,7 +76,7 @@ app.patch('/lists/:listId/tasks/:taskId', (req, res) => {
     Task.findOneAndUpdate({_id: req.params.taskId, _listId: req.params.listId},
         { $set: req.body }
     ).then(() => {
-        res.send(200);
+        res.sendStatus(200);
     });
 });
 
@@ -69,9 +86,9 @@ app.delete('/lists/:listId/tasks/:taskId', (req, res) => {
         _listId: req.params.listId
     }).then((removedTaskDoc) => {
         res.send(removedTaskDoc);
-    })
-})
+    });
+});
 
 app.listen(3000, () => {
-    console.log("Server is running on port 3000"); 
+    console.log("Server is running on port 3000");
 });
