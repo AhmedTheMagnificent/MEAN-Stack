@@ -8,20 +8,40 @@
                 <a class="list-menu-item" *ngFor="let list of lists" [routerLink]="['/lists', list._id]" routerLinkActive="is-active">
                     <p>{{ list.title }}</p>
                 </a>
-                
             </div>
-            <button class="button is-primary has-text-white" routerLink='/new-list'>+ New List</button>
+            <button class="button is-primary has-text-white" routerLink="/new-list">+ New List</button>
         </div>
-        <div class="task-list-cotainer has-background-light">
-            <h1 class="title has-text-primary">
-                Tasks
-           </h1>
-           <div class="task" *ngFor="let task of tasks">
-            <p>{{ task.title }}</p>
-           </div>
-           <button class="circle-add-button button is-primary plus" routerLink="./new-task">
-            +
-           </button>
+        <div class="task-list-container has-background-light">
+            <div class="top-bar">
+                <div class="heading">
+                    <h1 class="title has-text-primary">
+                        Tasks
+                    </h1>
+                </div>
+                <div class="dropdown is-hoverable is-right">
+                    <div class="dropdown-trigger">
+                        <button class="button special" aria-haspopup="true" style="background-color:white" aria-controls="dropdown-menu4">
+                            <span class="icon is-small">
+                                &vellip;
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                        <div class="dropdown-content">
+                            <a href="#" class="dropdown-item">Edit</a>
+                            <a class="dropdown-item danger" (click)="onDeleteListClick()">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding:0px;" class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{'completed': task.completed}">
+                <p style="padding:7px">{{ task.title }}</p>
+            </div>
+            <button class="circle-add-button button is-primary plus" routerLink="./new-task">
+                <span class="icon">
+                    +
+                </span>
+            </button>
         </div>
     </div>
 </div>

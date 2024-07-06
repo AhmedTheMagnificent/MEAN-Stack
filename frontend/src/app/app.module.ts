@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { TaskViewComponent } from './components/task-view/task-view.component';
 import { NewListComponent } from './components/new-list/new-list.component';
 import { NewTaskComponent } from './components/new-task/new-task.component';
+import { EditListComponent } from './components/edit-list/edit-list.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { NewTaskComponent } from './components/new-task/new-task.component';
     AppComponent,
     TaskViewComponent,
     NewListComponent,
-    NewTaskComponent
+    NewTaskComponent,
+    EditListComponent
   ],
   imports: [
     BrowserModule,

@@ -22,7 +22,7 @@ export class NewTaskComponent implements OnInit {
   createTask(title: string) {
     if (this.listId) {
       this.taskService.createTask(title, this.listId).subscribe((newTask: Task) => {
-        this.router.navigate(['/lists', this.listId])
+        this.router.navigate(['/lists', this.listId]);
       });
     }
   }
