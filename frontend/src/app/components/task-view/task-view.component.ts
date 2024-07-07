@@ -75,4 +75,28 @@ export class TaskViewComponent implements OnInit {
       );
     }
   }
+
+  onDeleteTaskClick(taskId?: string): void {
+    if (this.selectedListId && taskId) {
+      this.taskService.deleteTask(this.selectedListId, taskId).subscribe(
+        (res: any) => {
+          console.log(res);
+          this.tasks = this.tasks.filter(task => task._id !== taskId);
+          // Optionally, perform any additional actions after deletion
+        },
+        error => {
+          console.error('Error deleting task:', error);
+        }
+      );
+    }
+  }
+
+  onEditTaskClick(taskId?: string): void {
+    // Implement edit task functionality as needed
+    if (taskId) {
+      console.log('Edit task clicked:', taskId);
+      // Example: Navigate to edit task route
+      // this.router.navigate(['/edit-task', this.selectedListId, taskId]);
+    }
+  }
 }

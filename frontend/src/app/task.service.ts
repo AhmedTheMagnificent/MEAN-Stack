@@ -14,6 +14,10 @@ export class TaskService {
     return this.webReqService.post<List>('lists', { title });
   }
 
+  updateList(id: string, title: string): Observable<List> {
+    return this.webReqService.patch<List>(`lists/${id}`, { title });
+  }
+
   getLists(): Observable<List[]> {
     return this.webReqService.get<List[]>('lists');
   }
@@ -30,7 +34,10 @@ export class TaskService {
     return this.webReqService.patch(`lists/${task._listId}/tasks/${task._id}`, { completed: !task.completed });
   }
 
-  deleteList(id: string){
+  deleteList(id: string): Observable<any> {
     return this.webReqService.delete(`lists/${id}`);
+  }
+  deleteTask(listId: string, taskId:string): Observable<any> {
+    return this.webReqService.delete(`lists/${listId}/tasks/${taskId}`);
   }
 }

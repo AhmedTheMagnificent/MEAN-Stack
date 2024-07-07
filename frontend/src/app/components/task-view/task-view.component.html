@@ -1,12 +1,11 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="centered-content">
     <div class="task-manager-container">
         <div class="sidebar has-background-white">
-            <h1 class="title has-text-primary">
-                Lists
-            </h1>
+            <h1 class="title has-text-primary">Lists</h1>
             <div class="list-menu">
                 <a class="list-menu-item" *ngFor="let list of lists" [routerLink]="['/lists', list._id]" routerLinkActive="is-active">
-                    <p>{{ list.title }}</p>
+                    {{ list.title }}
                 </a>
             </div>
             <button class="button is-primary has-text-white" routerLink="/new-list">+ New List</button>
@@ -14,32 +13,38 @@
         <div class="task-list-container has-background-light">
             <div class="top-bar">
                 <div class="heading">
-                    <h1 class="title has-text-primary">
-                        Tasks
-                    </h1>
+                    <h1 class="title has-text-primary">Tasks</h1>
                 </div>
                 <div class="dropdown is-hoverable is-right">
                     <div class="dropdown-trigger">
                         <button class="button special" aria-haspopup="true" style="background-color:white" aria-controls="dropdown-menu4">
-                            <span class="icon is-small">
-                                &vellip;
-                            </span>
+                            <span class="icon is-small">&vellip;</span>
                         </button>
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                         <div class="dropdown-content">
-                            <a href="#" class="dropdown-item">Edit</a>
-                            <a class="dropdown-item danger" (click)="onDeleteListClick()">Delete</a>
+                            <a class="dropdown-item" [routerLink]="['/edit-list', selectedListId]">Edit</a>
+                            <a class="dropdown-item danger" style="background-color: white; color:red " (click)="onDeleteListClick()">Delete</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div style="padding:0px;" class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{'completed': task.completed}">
-                <p style="padding:7px">{{ task.title }}</p>
+            <div style="padding: 0px;" class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{'completed': task.completed}">
+                <div class="task-text">
+                    <p style="padding: 7px">{{ task.title }}</p>
+                </div>
+                <div class="task-buttons">
+                    <button class="button special s" (click)="onEditTaskClick(task._id)">
+                        <i class="fa fa-edit" style="color:white; padding:0;"></i>
+                    </button>
+                    <button class="button danger special s" style="margin-right: 5px;" (click)="onDeleteTaskClick(task._id)">
+                        <i class="fa fa-trash" style="color:white; padding:0;"></i>
+                    </button>
+                </div>
             </div>
-            <button class="circle-add-button button is-primary plus" routerLink="./new-task">
+            <button class="circle-add-button button is-primary plus" style="color: white;" routerLink="./new-task">
                 <span class="icon">
-                    +
+                    <i class="fa fa-plus"></i>
                 </span>
             </button>
         </div>
