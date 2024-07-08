@@ -35,5 +35,5 @@ The Task Tracker web app is a simple, yet effective application for managing tas
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/yourusername/task-tracker.git
+git clone https://github.com/AhmedTheMagnificent/task-tracker.git
 cd task-tracker
